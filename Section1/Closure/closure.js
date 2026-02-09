@@ -122,17 +122,17 @@ Component();
 // Warning
 console.log("-----warning-----");
 
-// function scope forLoop with microtask queue
-console.log("-----function scope forLoop with microtask queue-----");
+// function scope forLoop with macrotask queue
+console.log("-----function scope forLoop with macrotask queue-----");
 for (var i = 0; i < 5; i++) {
   setTimeout(() => {
     console.log(i);
   }, 1000 * i);
 }
 
-// block scope forLoop with microtask queue
+// block scope forLoop with macrotask queue
 setTimeout(() => {
-  console.log("-----block scope forLoop with microtask queue-----");
+  console.log("-----block scope forLoop with macrotask queue-----");
   for (let i = 0; i < 5; i++) {
     setTimeout(() => {
       console.log(i);
@@ -140,10 +140,10 @@ setTimeout(() => {
   }
 }, 5000);
 
-// using proper closure in function scope forLoop with microtask queue
+// using proper closure in function scope forLoop with macrotask queue
 setTimeout(() => {
   console.log(
-    "-----using proper closure in function scope forLoop with microtask queue-----",
+    "-----using proper closure in function scope forLoop with macrotask queue-----",
   );
   for (var i = 0; i < 5; i++) {
     setTimeout(
