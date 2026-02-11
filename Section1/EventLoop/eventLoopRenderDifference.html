@@ -1,0 +1,56 @@
+<html>
+  <body>
+    <ul>
+      <li>동기 코드: <button id="sync">0</button></li>
+      <li>태스크, 매크로 태스크: <button id="macrotask">0</button></li>
+      <li>마이크로 태스크: <button id="microtask">0</button></li>
+    </ul>
+
+    <button id="all">모두 동시 실행</button>
+  </body>
+  <script>
+    const button = document.getElementById("run");
+    const syncButton = document.getElementById("sync");
+    const macrotaskButton = document.getElementById("macrotask");
+    const microtaskButton = document.getElementById("microtask");
+
+    const allButton = document.getElementById("all");
+
+    // 동기 코드로 버튼에 1부터 렌더링
+    syncButton.addEventListener("click", () => {
+      for (let i = 0; i <= 100000; i++) {
+        syncButton.innerHTML = i;
+      }
+    });
+
+    // setTimeout으로 태스크 큐에 작업을 넣어서 1부터 렌더링
+    macrotaskButton.addEventListener("click", () => {
+      for (let i = 0; i <= 100000; i++) {
+        setTimeout(() => {
+          macrotaskButton.innerHTML = i;
+        }, 0);
+      }
+    });
+
+    // queueMicrotask 마이크로 태스크 큐에 넣어서 1부터 렌더링
+    microtaskButton.addEventListener("click", () => {
+      for (let i = 0; i <= 100000; i++) {
+        queueMicrotask(() => {
+          microtaskButton.innerHTML = i;
+        });
+      }
+    });
+
+    allButton.addEventListener("click", () => {
+      for (let i = 0; i <= 100000; i++) {
+        setTimeout(() => {
+          macrotaskButton.innerHTML = i;
+        }, 0);
+        queueMicrotask(() => {
+          microtaskButton.innerHTML = i;
+        });
+        syncButton.innerHTML = i;
+      }
+    });
+  </script>
+</html>
